@@ -1,4 +1,5 @@
 from re import IGNORECASE, VERBOSE, Pattern, compile
+from typing import override
 
 from src.api.igdb import IgdbAPI
 from src.types import LinkInfo, ServiceId, ServiceName
@@ -9,7 +10,7 @@ from . import Service
 class SteamService(Service):
     def __init__(self, api: IgdbAPI):
         super().__init__()
-        self.api = api
+        self.api: IgdbAPI = api
 
     domains: list[str] = ["store.steampowered.com", "steamcommunity.com"]
     _pattern: Pattern[str] = compile(
@@ -27,6 +28,7 @@ class SteamService(Service):
     )
     _valid_types: list[str] = ["app"]
 
+    @override
     async def get_external_ids(
         self, link_info: LinkInfo
     ) -> dict[ServiceName, ServiceId]:

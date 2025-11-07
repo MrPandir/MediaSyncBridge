@@ -1,4 +1,5 @@
 from re import IGNORECASE, VERBOSE, Pattern, compile
+from typing import override
 
 from src.api.kinopoisk import KinopoiskAPI
 from src.types import LinkInfo, ServiceId, ServiceName
@@ -9,7 +10,7 @@ from . import Service
 class ImdbService(Service):
     def __init__(self, api: KinopoiskAPI):
         super().__init__()
-        self.api = api
+        self.api: KinopoiskAPI = api
 
     domains: list[str] = ["imdb.com"]
     _pattern: Pattern[str] = compile(
@@ -23,6 +24,7 @@ class ImdbService(Service):
     )
     _valid_types: list[str] = ["title"]
 
+    @override
     async def get_external_ids(
         self, link_info: LinkInfo
     ) -> dict[ServiceName, ServiceId]:

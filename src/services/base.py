@@ -7,7 +7,7 @@ from ..types import LinkInfo, ServiceId, ServiceName
 
 class Service(ABC):
     domains: list[str]
-    """List of domains associated with the service."""
+    """List of domains associated with the service. The first element is used as a standard for a clean link."""
     _pattern: Pattern[str]
     """Regex pattern to match the service URLs."""
     _valid_types: list[str]
@@ -21,12 +21,13 @@ class Service(ABC):
         if not self._valid_types:
             raise NotImplementedError("_valid_types must be set")
 
-    # @abstractmethod
     async def get_external_ids(
         self, link_info: LinkInfo
     ) -> dict[ServiceName, ServiceId]:
         """Fetch external IDs."""
-        ...
+        raise NotImplementedError(
+            "Implement this method to fetch external IDs in service."
+        )
 
     @staticmethod
     def normalize_url(link: str) -> str:

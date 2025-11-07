@@ -1,5 +1,6 @@
 from logging import getLogger
 from re import IGNORECASE, VERBOSE, Pattern, compile
+from typing import override
 
 from src.api.shikimori import ShikimoriAPI
 from src.types import LinkInfo, ServiceId, ServiceName
@@ -13,7 +14,7 @@ logger = getLogger(__name__)
 class ShikimoriService(Service):
     def __init__(self, api: ShikimoriAPI):
         super().__init__()
-        self.api = api
+        self.api: ShikimoriAPI = api
 
     domains: list[str] = ["shikimori.one", "shikimori.me"]
     _pattern: Pattern[str] = compile(
@@ -30,6 +31,7 @@ class ShikimoriService(Service):
     )
     _valid_types: list[str] = ["animes"]
 
+    @override
     async def get_external_ids(
         self, link_info: LinkInfo
     ) -> dict[ServiceName, ServiceId]:

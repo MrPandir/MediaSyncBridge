@@ -60,16 +60,18 @@ class Game(BaseModel):
 
 class IgdbAPI:
     def __init__(self):
-        self.client_id = os.getenv("IGDB_CLIENT_ID")
-        self.client_secret = os.getenv("IGDB_CLIENT_SECRET")
+        self.client_id: str | None = os.getenv("IGDB_CLIENT_ID")
+        self.client_secret: str | None = os.getenv("IGDB_CLIENT_SECRET")
 
         if not self.client_id or not self.client_secret:
             raise ValueError(
                 "IGDB_CLIENT_ID or IGDB_CLIENT_SECRET not found in environment variables."
             )
 
-        self.client = IGDBClient(self.client_id, client_secret=self.client_secret)
-        self.logger = logging.getLogger(__name__)
+        self.client: IGDBClient = IGDBClient(
+            self.client_id, client_secret=self.client_secret
+        )
+        self.logger: logging.Logger = logging.getLogger(__name__)
 
     async def connect(self):
         await self.client.__aenter__()

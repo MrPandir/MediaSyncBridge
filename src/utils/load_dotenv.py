@@ -17,7 +17,7 @@ def _get_env_data_as_dict(path: Path | str) -> dict[str, str]:
         )
 
 
-def load_env_to_environ(path: Path | str = ".", quiet=True):
+def load_env_to_environ(path: Path | str = ".", quiet: bool = True):
     path = Path(path)
     if path.is_dir():
         path = path / ".env"

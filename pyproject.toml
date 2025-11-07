@@ -26,3 +26,9 @@ excluded-dependencies = [
     "setuptools",
     "tomli",
 ]
+
+[tool.basedpyright]
+reportUnusedParameter = "hint"
+reportMissingTypeStubs = false
+reportUnusedCallResult = false
+reportUnknownMemberType = false

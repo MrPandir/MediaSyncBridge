@@ -63,8 +63,10 @@ class Anime(BaseModel):
 
 class ShikimoriAPI:
     def __init__(self):
-        self.client = AsyncShikimoriClient(user_agent="MediaSyncBridge")
-        self.logger = logging.getLogger(__name__)
+        self.client: AsyncShikimoriClient = AsyncShikimoriClient(
+            user_agent="MediaSyncBridge"
+        )
+        self.logger: logging.Logger = logging.getLogger(__name__)
 
     async def get_external_urls(
         self, anime_id: ServiceId
