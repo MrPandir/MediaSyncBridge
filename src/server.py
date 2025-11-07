@@ -83,6 +83,8 @@ async def get_external_ids(url: str):
         )
         json = {"error": "Unsupported link", "link": e.link}
         return JSONResponse(json, status.HTTP_415_UNSUPPORTED_MEDIA_TYPE)
+    except ValueError as e:
+        return JSONResponse({"error": e.args[0]}, status.HTTP_404_NOT_FOUND)
     except Exception as e:
         return JSONResponse({"error": e.args[0]}, status.HTTP_500_INTERNAL_SERVER_ERROR)
 
